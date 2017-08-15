@@ -1,0 +1,61 @@
+// ****************************************** \\
+
+      LEM_IN - gduval.born2code@gmail.com
+
+\\ ****************************************** //
+
+1) Parsing
+        - Nb de salles
+        - Nb de fourmis
+        - Liaisons entre salles (tubes)
+
+2) Algo
+        - On définit un index par salle en fonction de sa distance qui la sépare
+        de la salle d'arrivée.
+
+                ex : si la salle 1 est la salle d'arrivée, toutes les salles
+                ayants une liaison avec la salle 1
+                auront comme index : 1, car 1 déplacement est nécessaire afin de
+                se rendre dans la salle 1.
+
+                tips : toutes les salles ayant déjà un index ne peuvent pas le
+                voir écraser.
+                        ex : si la salle 05 est index : 2 car a une liaison avec
+                        une salle d'index : 1, elle ne pourra pas devenir
+                        index : 5 car elle a également une liaison avec une
+                        salle d'index 4 !
+
+        - sOn déplace les fourmis de 1 jusqu'à n en essayant de les placer sur
+        des salles d'un index plus petit ou égal à la salle actuellement
+        utilisée.
+
+        - On ne déplacera jamais une fourmis dans une salle dont l'index est
+        inférieur ou égal à celui de la salle start.
+
+                ex :
+                int     i = 0;
+
+                while (ants_array[i])
+                {
+                        if (ants_array[i]->room != t_global->end_room)
+                        {
+
+                        }
+                        i++;
+                }
+
+3) Brainstorming
+        typedef struct  s_room
+        {
+                int     use; // Définit si OUI ou NON la salle est actuellement utilisée par une fourmis
+                int     index; // Stock l'index
+                int     *links; // Tableau d'int stockant les liaisons de la salle.
+                t_room  *next;
+        }               t_room;
+
+        typedef struct  s_global
+        {
+                int     hants;
+                int     rooms;
+                int     importants_points[2];
+i       }               t_global;
