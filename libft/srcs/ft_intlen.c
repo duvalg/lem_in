@@ -12,10 +12,10 @@
 
 #include "../includes/libft.h"
 
-int		ft_intlen(uintmax_t n)
+int		ft_intlen(unsigned long long n)
 {
-	uintmax_t	len;
-	uintmax_t	tmp;
+	unsigned long long	len;
+	unsigned long long	tmp;
 
 	len = 1;
 	tmp = n;

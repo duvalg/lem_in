@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../includes/lem_in.h"
-#include <stdio.h> //adw
 
 static void		insert_links(t_links **link, char **line)
 {
@@ -51,9 +50,11 @@ void			get_links(char **line, t_dna *dna)
 			tmp->next = init_link();
 			tmp = tmp->next;
 		}
+		ft_putendl((const char *)*line);
 		ft_strdel(line);
 	}
 	ft_strdel(line);
+	write(1, "\n", 1);
 	dna->links = link;
 	set_index(dna);
 }

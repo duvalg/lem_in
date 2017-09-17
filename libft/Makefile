@@ -87,7 +87,7 @@ HEADER_PATH = ./includes/
 HEADER_NAME = libft.h
 HEADER = $(addprefix $(HEADER_PATH), $(HEADER_NAME))
 
-FLAGS = -c -Wall -Wextra -Werror
+FLAGS = -c
 CC = gcc
 
 all: $(NAME)

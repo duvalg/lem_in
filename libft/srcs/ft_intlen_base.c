@@ -12,14 +12,14 @@
 
 #include "../includes/libft.h"
 
-int		ft_intlen_base(uintmax_t n, int base)
+int		ft_intlen_base(unsigned long long n, int base)
 {
-	uintmax_t	len;
-	uintmax_t	tmp;
+	unsigned long long	len;
+	unsigned long long	tmp;
 
 	len = 1;
 	tmp = n;
-	while (tmp >= (uintmax_t)base)
+	while (tmp >= (unsigned long long)base)
 	{
 		tmp /= base;
 		len++;

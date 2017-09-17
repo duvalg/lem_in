@@ -18,8 +18,8 @@ t_dna			init_dna(void)
 
 	dna.ants = 0;
 	dna.rooms_nb = 0;
-	dna.keyrooms[0] = 0;
-	dna.keyrooms[1] = 0;
+	dna.keyrooms[0] = -1;
+	dna.keyrooms[1] = -1;
 	dna.room_lst = NULL;
 	dna.rooms = NULL;
 	return (dna);

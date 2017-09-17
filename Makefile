@@ -10,19 +10,21 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = lem_in
+NAME = lem-in
 
 LIBFT_NAME = libft.a
 LIBFT_PATH = ./libft/
 LIBFT = $(addprefix $(LIBFT_PATH), $(LIBFT_NAME))
 
 SRC_PATH = ./srcs/
-SRC_NAME = main.c				\
-			init_struct.c		\
-			parse.c				\
-			create_rooms.c		\
-			get_links.c			\
-			set_index.c			\
+SRC_NAME = main.c						\
+			init_struct.c				\
+			parse.c						\
+			create_rooms.c				\
+			get_links.c					\
+			set_index.c					\
+			bring_ants.c				\
+			navigate_throught_rooms.c	\
 			exit.c
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
@@ -32,7 +34,7 @@ HEADER_PATH = ./includes/
 HEADER_NAME = lem_in.h
 HEADER = $(addprefix $(HEADER_PATH), $(HEADER_NAME))
 
-FLAGS = -c -Weverything
+FLAGS = -c
 CC = gcc
 
 all: $(NAME)

@@ -14,14 +14,12 @@
 
 char		*ft_strsub(char const *s, unsigned int start, size_t len)
 {
-	int		i;
 	char	*str;
 
 	if (s)
 	{
 		if (start >= ft_strlen(s))
 			return (NULL);
-		i = 0;
 		if (!(str = ft_strnew(len)))
 			return (NULL);
 		if (!(ft_memmove(str, s + (start), len)))

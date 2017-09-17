@@ -29,6 +29,12 @@ typedef struct		s_links
 	struct s_links	*next;
 }					t_links;
 
+typedef struct		s_ants
+{
+	int				name;
+	char			**room;
+}					t_ants;
+
 typedef struct		s_dna
 {
 	int				ants;
@@ -37,6 +43,7 @@ typedef struct		s_dna
 	char			**room_lst;
 	t_room			*rooms;
 	t_links			*links;
+	t_ants			*ants_array;
 }					t_dna;
 
 int					main(void);
@@ -49,7 +56,12 @@ void				get_links(char **line, t_dna *dna)\
 __attribute__ ((noreturn));
 void				set_index(t_dna *dna)\
 __attribute__ ((noreturn));
-void				error(void)__attribute__ ((noreturn));
+void            	bring_ants(t_dna *dna)\
+__attribute__ ((noreturn));
+t_room				*find_room_by_name(char **name, t_dna *dna);
+void				check_double(t_dna *dna);
+void				error(void)__attribute__ ((noreturn))\
+__attribute__ ((noreturn));
 void				ft_exit(t_dna *dna)__attribute__ ((noreturn));
 
 #endif

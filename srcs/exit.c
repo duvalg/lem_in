@@ -69,11 +69,11 @@ void			ft_exit(t_dna *dna)
 	free_links(dna);
 	free_rooms(dna);
 	free_double_array(dna);
-	exit(EXIT_SUCCESS);
+	exit(1);
 }
 
 void			error(void)
 {
 	write(2, "ERROR\n", 6);
-	exit(EXIT_FAILURE);
+	exit(3);
 }
