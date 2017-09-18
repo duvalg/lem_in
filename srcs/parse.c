@@ -36,6 +36,7 @@ static int	get_ants(t_dna *dna, char **line)
 	short int	ret;
 
 	ants = 0;
+	ret = 0;
 	while ((ret = (unsigned short)get_next_line(0, line)) > 0)
 	{
 		if ((ants = (unsigned short)ft_atoi(*line)) != 0)
@@ -57,19 +58,20 @@ static int	get_ants(t_dna *dna, char **line)
 
 static void	insert_key_room(int index, int *keyroom, t_dna *dna)
 {
-	if (*keyroom == 1)
+	switch (*keyroom)
 	{
-		if (dna->keyrooms[0] == -1)
-			dna->keyrooms[0] = index;
-		else
-			error();
-	}
-	else if (*keyroom == 2)
-	{
-		if (dna->keyrooms[1] == -1)
-			dna->keyrooms[1] = index;
-		else
-			error();
+		case 1:
+			if (dna->keyrooms[0] == -1)
+				dna->keyrooms[0] = index;
+			else
+				error();
+			break ;
+		case 2:
+			if (dna->keyrooms[1] == -1)
+				dna->keyrooms[1] = index;
+			else
+				error();
+			break ;
 	}
 	*keyroom = 0;
 }
@@ -96,9 +98,9 @@ static char	**get_rooms(t_dna *dna, char **line)
 			{
 				if (!(name = ft_strsub(*line, 0, (size_t)ft_strchri(*line, ' ') + 1)))
 					error();
-				if (name[0] == 'L')
+				else if (name[0] == 'L')
 					error();
-				if (!(lst = (!lst) ? name : ft_strjoin_free(lst, name, 3)))
+				else if (!(lst = (!lst) ? name : ft_strjoin_free(lst, name, 3)))
 					error();
 				insert_key_room(dna->rooms_nb, &keyroom, dna);
 				++(dna->rooms_nb);

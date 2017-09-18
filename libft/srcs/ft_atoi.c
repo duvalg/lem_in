@@ -24,18 +24,16 @@ int		ft_atoi(const char *str)
 	result = 0;
 	negative = 0;
 	while ((str[i] >= 9 && str[i] <= 13) || str[i] == ' ')
-		i++;
+		++i;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		negative = (str[i] == '-') ? 1 : 0;
-		i++;
+		++i;
 	}
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		result = result * 10 + str[i] - '0';
-		i++;
+		++i;
 	}
-	if (negative == 1)
-		return (-result);
-	return (result);
+	return (negative == 1) ? -result : result;
 }

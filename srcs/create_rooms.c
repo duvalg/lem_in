@@ -20,8 +20,7 @@ void			create_rooms(char **line, t_dna *dna)
 	i = -1;
 	while (dna->room_lst[++i])
 	{
-		if (!(rooms[i].name = ft_strdup(dna->room_lst[i])))
-			error();
+		rooms[i].name = dna->room_lst[i];
 		rooms[i].active = 0;
 		if (i == dna->keyrooms[1])
 			rooms[i].index = 0;

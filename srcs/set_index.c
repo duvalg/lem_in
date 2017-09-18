@@ -12,12 +12,12 @@
 
 #include "../includes/lem_in.h"
 
-static void			check_room(t_room *room, short int index)
+static void			check_room(t_room *room, short int *index)
 {
 	if (room->index == -1)
 	{
 		if (room)
-			room->index = index + 1;
+			room->index = *index + 1;
 	}
 }
 
@@ -38,18 +38,19 @@ int					check_links(char **name, short int index, t_dna *dna)
 {
 	t_links			*tmp;
 
+	tmp = NULL;
 	tmp = dna->links;
 	while (tmp->next != NULL)
 	{
 		if (!ft_strcmp(*name, tmp->link_a))
 		{
 			if (ft_strlen(*name) == ft_strlen(tmp->link_a))
-				check_room(find_room_by_name(&tmp->link_b, dna), index);
+				check_room(find_room_by_name(&tmp->link_b, dna), &index);
 		}
 		else if (!ft_strcmp(*name, tmp->link_b))
 		{
 			if (ft_strlen(*name) == ft_strlen(tmp->link_b))
-				check_room(find_room_by_name(&tmp->link_a, dna), index);
+				check_room(find_room_by_name(&tmp->link_a, dna), &index);
 		}
 		tmp = tmp->next;
 	}
@@ -67,7 +68,8 @@ void				set_index(t_dna *dna)
 	size = 0;
 	while (++i <= dna->rooms_nb)
 	{
-		if ((size = dna->rooms[dna->keyrooms[0]].index) != -1 && size * 2 < index)
+		size = dna->rooms[dna->keyrooms[0]].index;
+		if (size != -1 && size < index)
 			break ;
 		if (dna->rooms[i].index == index)
 		{

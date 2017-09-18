@@ -25,9 +25,9 @@ char		*ft_strjoin_free(char const *s1, char const *s2, int option)
 		ft_strcpy(str, s1);
 		ft_strcat(str, s2);
 		if (option == 1 || option == 3)
-			ft_memdel((void **)&s1);
+			ft_strdel((char **)&s1);
 		if (option == 2 || option == 3)
-			ft_memdel((void **)&s2);
+			ft_strdel((char **)&s2);
 		return (str);
 	}
 	return (NULL);

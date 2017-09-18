@@ -56,7 +56,7 @@ static int      check_links(t_ants *ants, t_dna *dna)
     short int   add;
     int         index;
 
-    add = -10;
+    add = -2;
     index = find_room_by_name(ants->room, dna)->index;
     while (++add <= 0)
     {
@@ -86,7 +86,8 @@ static int      check_all_ants(t_dna *dna)
     i = -1;
     while (++i < dna->ants)
     {
-        if (ft_strcmp(*dna->ants_array[i].room, dna->rooms[dna->keyrooms[1]].name))
+        if (ft_strcmp(*dna->ants_array[i].room, \
+            dna->rooms[dna->keyrooms[1]].name))
             return (0);
     }
     return (1);

@@ -18,5 +18,5 @@ int			main(void)
 
 	dna = init_dna();
 	parse(&dna);
-	return (0);
+	return (1);
 }

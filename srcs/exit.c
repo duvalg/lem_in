@@ -12,19 +12,6 @@
 
 #include "../includes/lem_in.h"
 
-static void		free_double_array(t_dna *dna)
-{
-	int			i;
-
-	i = -1;
-	while (dna->room_lst[++i])
-	{
-		if (dna->room_lst[i])
-			ft_strdel(&dna->room_lst[i]);
-	}
-	ft_memdel((void **)&dna->room_lst);
-}
-
 static void		free_rooms(t_dna *dna)
 {
 	int			i;
@@ -62,18 +49,15 @@ void			ft_exit(t_dna *dna)
 
 	i = -1;
 	while (++i < dna->rooms_nb)
-	{
-		ft_memdel((void **)&(dna->rooms[i].name));
 		ft_memdel((void **)&(dna->rooms[i]));
-	}
 	free_links(dna);
 	free_rooms(dna);
-	free_double_array(dna);
-	exit(1);
+	ft_memdel((void **)&dna->room_lst);
+	exit(EXIT_SUCCESS);
 }
 
 void			error(void)
 {
 	write(2, "ERROR\n", 6);
-	exit(3);
+	exit(EXIT_FAILURE);
 }

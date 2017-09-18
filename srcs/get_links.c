@@ -17,8 +17,11 @@ static void		insert_links(t_links **link, char **line)
 	short int	i;
 
 	i = (short int)ft_strchri(*line, '-');
-	(*link)->link_a = ft_strsub(*line, 0, (size_t)i);
-	(*link)->link_b = ft_strsub(*line, (unsigned int)i + 1, ft_strlen(*line) - (size_t)i);
+	if (!((*link)->link_a = ft_strsub(*line, 0, (size_t)i)))
+		error();
+	if (!((*link)->link_b = ft_strsub(*line, (unsigned int)i + 1, \
+	ft_strlen(*line) - (size_t)i)))
+		error();
 }
 
 static void		implement_first_link(t_links **tmp, char **line)
@@ -44,7 +47,7 @@ void			get_links(char **line, t_dna *dna)
 	{
 		if (*line[0] == 'L')
 			break ;
-		if (ft_strchri(*line, '-'))
+		else if (ft_strchri(*line, '-'))
 		{
 			insert_links(&tmp, line);
 			tmp->next = init_link();

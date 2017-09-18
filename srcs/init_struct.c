@@ -22,6 +22,8 @@ t_dna			init_dna(void)
 	dna.keyrooms[1] = -1;
 	dna.room_lst = NULL;
 	dna.rooms = NULL;
+	dna.links = NULL;
+	dna.ants_array = NULL;
 	return (dna);
 }
 
@@ -29,7 +31,7 @@ t_links			*init_link(void)
 {
 	t_links		*link;
 
-	if (!(link = ft_memalloc(sizeof(t_links))))
+	if (!(link = (t_links *)ft_memalloc(sizeof(t_links))))
 		return (NULL);
 	link->link_a = NULL;
 	link->link_b = NULL;
