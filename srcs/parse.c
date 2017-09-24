@@ -44,7 +44,7 @@ static int	get_ants(t_dna *dna, char **line)
 		check_line(line);
 		ft_putendl(*line);
 	}
-	if (ret < 0 || ants <= 0 || (long long)ants > 10000)
+	if (ret < 0 || ants <= 0 || (long long)ants > 100000)
 	{
 		if (*line)
 			ft_strdel(line);
@@ -97,6 +97,8 @@ static char	**get_rooms(t_dna *dna, char **line)
 			if (*line[0] != '#')
 			{
 				if (!(name = ft_strsub(*line, 0, (size_t)ft_strchri(*line, ' ') + 1)))
+					error();
+				else if (ft_strlen(name) > 1000)
 					error();
 				else if (name[0] == 'L')
 					error();

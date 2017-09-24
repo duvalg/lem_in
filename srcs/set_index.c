@@ -21,7 +21,39 @@ static void			check_room(t_room *room, short int *index)
 	}
 }
 
-static int			links_broken(short int index, t_dna *dna)
+int					check_links(char **name, short int index, t_dna *dna)
+{
+	t_links			*tmp;
+	t_room			*tmp_room;
+
+	tmp = NULL;
+	tmp = dna->links;
+	while (tmp->next)
+	{
+		if (!ft_strcmp(*name, tmp->link_a))
+		{
+			if (ft_strlen(*name) == ft_strlen(tmp->link_a))
+			{
+				if (!(tmp_room = find_room_by_name(&tmp->link_b, dna)))
+					break;
+				check_room(tmp_room, &index);
+			}
+		}
+		else if (!ft_strcmp(*name, tmp->link_b))
+		{
+			if (ft_strlen(*name) == ft_strlen(tmp->link_b))
+			{
+				if (!(tmp_room = find_room_by_name(&tmp->link_a, dna)))
+					break;
+				check_room(tmp_room, &index);
+			}
+		}
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int				broken_links_verification(t_dna *dna, int index)
 {
 	int				i;
 
@@ -29,32 +61,9 @@ static int			links_broken(short int index, t_dna *dna)
 	while (++i < dna->rooms_nb)
 	{
 		if (dna->rooms[i].index == index - 1)
-			return (0);
+			return (1);
 	}
-	return (1);
-}
-
-int					check_links(char **name, short int index, t_dna *dna)
-{
-	t_links			*tmp;
-
-	tmp = NULL;
-	tmp = dna->links;
-	while (tmp->next != NULL)
-	{
-		if (!ft_strcmp(*name, tmp->link_a))
-		{
-			if (ft_strlen(*name) == ft_strlen(tmp->link_a))
-				check_room(find_room_by_name(&tmp->link_b, dna), &index);
-		}
-		else if (!ft_strcmp(*name, tmp->link_b))
-		{
-			if (ft_strlen(*name) == ft_strlen(tmp->link_b))
-				check_room(find_room_by_name(&tmp->link_a, dna), &index);
-		}
-		tmp = tmp->next;
-	}
-	return (1);
+	return (0);
 }
 
 void				set_index(t_dna *dna)
@@ -66,21 +75,23 @@ void				set_index(t_dna *dna)
 	i = -1;
 	index = 0;
 	size = 0;
-	while (++i <= dna->rooms_nb)
+	while (++i < dna->rooms_nb)
 	{
+		if (!broken_links_verification(dna, index))
+			break ;
 		size = dna->rooms[dna->keyrooms[0]].index;
 		if (size != -1 && size < index)
 			break ;
 		if (dna->rooms[i].index == index)
-		{
-			if (!check_links(&dna->rooms[i].name, index, dna))
-				error();
-		}
-		if (i == dna->rooms_nb)
+		check_links(&dna->rooms[i].name, index, dna);
+		if (i == dna->rooms_nb - 1)
 		{
 			i = -1;
 			++index;
 		}
 	}
+	if(dna->rooms[dna->keyrooms[0]].index == -1 || \
+		dna->rooms[dna->keyrooms[1]].index == -1)
+		error();
 	bring_ants(dna);
 }

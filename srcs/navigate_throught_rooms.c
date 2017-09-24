@@ -25,7 +25,6 @@ t_room				*find_room_by_name(char **name, t_dna *dna)
 				return (&dna->rooms[i]);
 		}
 	}
-	error();
 	return (0);
 }
 

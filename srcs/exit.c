@@ -32,15 +32,14 @@ static void		free_links(t_dna *dna)
 	tmp = dna->links;
 	while (tmp->next)
 	{
-		if (tmp->link_a)
-			ft_strdel(&(tmp->link_a));
-		if (tmp->link_b)
-			ft_strdel(&(tmp->link_b));
+		ft_strdel(&(tmp->link_a));
+		ft_strdel(&(tmp->link_b));
 		tmp_dup = tmp->next;
 		ft_memdel((void **)&tmp);
 		tmp = tmp_dup;
 		tmp_dup = NULL;
 	}
+	ft_memdel((void **)&tmp);
 }
 
 void			ft_exit(t_dna *dna)
@@ -52,6 +51,7 @@ void			ft_exit(t_dna *dna)
 		ft_memdel((void **)&(dna->rooms[i]));
 	free_links(dna);
 	free_rooms(dna);
+	i = -1;
 	ft_memdel((void **)&dna->room_lst);
 	exit(EXIT_SUCCESS);
 }

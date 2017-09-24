@@ -12,27 +12,56 @@
 
 #include "../includes/lem_in.h"
 
-static void		insert_links(t_links **link, char **line)
+static int		check_links(t_links **link, char **line, int separate, t_dna *dna)
 {
-	short int	i;
+	char		*link_a_tmp;
+	char		*link_b_tmp;
 
-	i = (short int)ft_strchri(*line, '-');
-	if (!((*link)->link_a = ft_strsub(*line, 0, (size_t)i)))
+	if (!(link_a_tmp = ft_strsub(*line, 0, separate)))
 		error();
-	if (!((*link)->link_b = ft_strsub(*line, (unsigned int)i + 1, \
-	ft_strlen(*line) - (size_t)i)))
+	if (!find_room_by_name(&link_a_tmp, dna))
+	{
+		ft_strdel(&link_a_tmp);
+		return (0);
+	}
+	if (!(link_b_tmp = ft_strsub(*line, separate + 1, ft_strlen(*line) - \
+	(size_t)separate)))
 		error();
+	if (!find_room_by_name(&link_b_tmp, dna))
+	{
+		ft_strdel(&link_a_tmp);
+		ft_strdel(&link_b_tmp);
+		return (0);
+	}
+	else
+	{
+		(*link)->link_a = link_a_tmp;
+		(*link)->link_b = link_b_tmp;
+	}
+	return (1);
 }
 
-static void		implement_first_link(t_links **tmp, char **line)
+static int		insert_links(t_links **link, char **line, t_dna *dna)
 {
-	if (ft_strchri(*line, '-'))
+	int			i;
+
+	i = -1;
+	while (++i < ft_strlen(*line))
 	{
-		insert_links(tmp, line);
+		if (check_links(link, line, i, dna))
+			return (1);
+	}
+	return (0);
+}
+
+static void		implement_first_link(t_links **tmp, char **line, t_dna *dna)
+{
+		if (!insert_links(tmp, line, dna))
+			error();
 		(*tmp)->next = init_link();
 		(*tmp) = (*tmp)->next;
-	}
-	ft_strdel(line);
+		ft_putendl(*line);
+		ft_strdel(line);
 }
 
 void			get_links(char **line, t_dna *dna)
@@ -42,14 +71,15 @@ void			get_links(char **line, t_dna *dna)
 
 	link = init_link();
 	tmp = link;
-	implement_first_link(&tmp, line);
+	implement_first_link(&tmp, line, dna);
 	while (get_next_line(0, line) > 0)
 	{
-		if (*line[0] == 'L')
+		if (*line[0] == 'L' || !ft_strchr(*line, '-'))
 			break ;
-		else if (ft_strchri(*line, '-'))
+		else if (ft_strchri(*line, '-') && *line[0] != '#')
 		{
-			insert_links(&tmp, line);
+			if (!insert_links(&tmp, line, dna))
+				break ;
 			tmp->next = init_link();
 			tmp = tmp->next;
 		}
